@@ -9,9 +9,8 @@ FROM openjdk:17-ea-3-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose Spring Boot and gRPC ports
-EXPOSE 8080
+# Expose gRPC ports
 EXPOSE 9090
 
 # Run the application and bind to all interfaces
-ENTRYPOINT ["java", "-jar", "app.jar", "--server.port=8080", "--grpc.server.port=9090", "--server.address=0.0.0.0"]
+ENTRYPOINT ["java", "-jar", "app.jar", "--grpc.server.port=9090", "--server.address=0.0.0.0"]

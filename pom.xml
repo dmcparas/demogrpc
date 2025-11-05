@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>coreservice</artifactId>
+	<artifactId>grpcservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>core-service</name>
-	<description>Demo project for Core</description>
+	<description>Demo project for gRPC</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -30,18 +30,6 @@
 		<java.version>17</java.version>
 	</properties>
     <dependencies>
-        <!-- REST -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- GraphQL -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-graphql</artifactId>
-        </dependency>
-
         <!-- gRPC -->
         <dependency>
             <groupId>net.devh</groupId>
