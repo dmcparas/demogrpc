@@ -1,16 +1,15 @@
-# Stage 1: Build the JAR using Maven
-FROM maven:3.9.6-eclipse-temurin-17 AS build
-WORKDIR /app
-COPY . .
-RUN mvn clean package -DskipTests
+FROM confluentinc/cp-kafka:7.5.0
 
-# Stage 2: Run the JAR with OpenJDK
-FROM openjdk:17-ea-3-jdk-slim
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+COPY startup.sh /usr/local/bin/startup.sh
+RUN chmod +x /usr/local/bin/startup.sh
 
-# Expose gRPC ports
-EXPOSE 9090
+ENV KAFKA_BROKER_ID=1
+ENV KAFKA_ZOOKEEPER_CONNECT=localhost:2181
+ENV KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
+ENV KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka.internal:9092
+ENV KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
+ENV KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
 
-# Run the application and bind to all interfaces
-ENTRYPOINT ["java", "-jar", "app.jar", "--grpc.server.port=9090", "--server.address=0.0.0.0"]
+EXPOSE 2181 9092
+
+ENTRYPOINT ["/usr/local/bin/startup.sh"]
