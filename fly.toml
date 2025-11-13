@@ -1,4 +1,4 @@
-app = "kafka"
+app = "demokafka"
 
 [[services]]
 internal_port = 9092
