@@ -1,7 +1,12 @@
 app = "demokafka"
+primary_region = "lhr"
 
+[build]
+dockerfile = "Dockerfile"
+
+# Kafka Broker + Zookeeper combined container
 [[services]]
-internal_port = 9092
+internal_port = 9092      # Kafka port
 protocol = "tcp"
 
 [[services.ports]]
@@ -10,11 +15,16 @@ port = 9092
 [[services.tcp_checks]]
 interval = "15s"
 timeout = "2s"
-grace_period = "60s"
+grace_period = "180s"
 
 [[services]]
-internal_port = 2181
+internal_port = 2181      # Zookeeper port
 protocol = "tcp"
 
 [[services.ports]]
 port = 2181
+
+[[services.tcp_checks]]
+interval = "15s"
+timeout = "2s"
+grace_period = "180s"

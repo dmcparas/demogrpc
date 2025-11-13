@@ -1,10 +1,12 @@
-#!/bin/sh
+#!/bin/bash
+# Wait for Zookeeper (in the same container, we can start it directly)
+echo "Starting Zookeeper..."
+/etc/confluent/docker/run &   # Starts Zookeeper in background
+
 # Wait for Zookeeper to be ready
-echo "Waiting for Zookeeper on localhost:2181..."
 while ! nc -z localhost 2181; do
   sleep 1
 done
-echo "Zookeeper is up, starting Kafka..."
 
-# Start Kafka
-exec /etc/confluent/docker/run
+echo "Starting Kafka..."
+exec /etc/confluent/docker/run  # Starts Kafka

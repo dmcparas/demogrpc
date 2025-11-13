@@ -1,17 +1,17 @@
 FROM confluentinc/cp-kafka:7.5.0
 
-# Copy script to writable directory
+# Copy startup script
 COPY startup.sh /tmp/startup.sh
 
-# Make it executable
-#RUN chmod +x /tmp/startup.sh
-
+# Set environment variables for Kafka + Zookeeper
 ENV KAFKA_BROKER_ID=1
 ENV KAFKA_ZOOKEEPER_CONNECT=localhost:2181
 ENV KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
-ENV KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://demokafka.internal:9092
+ENV KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka.internal:9092
 ENV KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
 ENV KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+ENV ZOOKEEPER_CLIENT_PORT=2181
+ENV ZOOKEEPER_TICK_TIME=2000
 
 EXPOSE 2181 9092
 
