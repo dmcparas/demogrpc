@@ -1,15 +1,18 @@
 FROM confluentinc/cp-kafka:7.5.0
 
-COPY startup.sh /usr/local/bin/startup.sh
-RUN chmod +x /usr/local/bin/startup.sh
+# Copy script to writable directory
+COPY startup.sh /tmp/startup.sh
+
+# Make it executable
+RUN chmod +x /tmp/startup.sh
 
 ENV KAFKA_BROKER_ID=1
 ENV KAFKA_ZOOKEEPER_CONNECT=localhost:2181
 ENV KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092
-ENV KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://demokafka.internal:9092
+ENV KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka.internal:9092
 ENV KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
 ENV KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
 
 EXPOSE 2181 9092
 
-ENTRYPOINT ["/usr/local/bin/startup.sh"]
+ENTRYPOINT ["/tmp/startup.sh"]
