@@ -4,7 +4,7 @@ FROM confluentinc/cp-kafka:7.5.0
 COPY startup.sh /tmp/startup.sh
 
 # Make it executable
-RUN chmod +x /tmp/startup.sh
+#RUN chmod +x /tmp/startup.sh
 
 ENV KAFKA_BROKER_ID=1
 ENV KAFKA_ZOOKEEPER_CONNECT=localhost:2181
